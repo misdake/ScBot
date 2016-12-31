@@ -99,7 +99,7 @@ public class Main extends DefaultBWListener {
                 barrackCount++;
             }
         }
-        if (self.minerals() >= 50 && (self.supplyTotal() - self.supplyUsed()) > 0) {
+        if (self.minerals() >= 50 && (expectedSupply - self.supplyUsed()) >= barrackCount * 2) {
             for (Unit unit : units) {
                 if (unit.getType() == UnitType.Terran_Barracks && !unit.isTraining()) {
                     unit.train(UnitType.Terran_Marine);
@@ -204,7 +204,7 @@ public class Main extends DefaultBWListener {
         for (BaseLocation b : BWTA.getBaseLocations()) {
             TilePosition base = b.getTilePosition();
             if (base.getX() != startLocation.getX() && base.getY() != startLocation.getY()) {
-                double d = startLocation.getDistance(base);
+                double d = BWTA.getGroundDistance(startLocation, base);
                 if (d < min) {
                     min = d;
                     sec = b;
